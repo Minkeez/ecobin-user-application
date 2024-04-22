@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:user_application/leaderboard_screen.dart';
+import 'package:user_application/point_screen.dart';
 // import 'package:user_application/firestore_data.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,17 +41,9 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         Expanded(
           child: TabBarView(
             controller: _tabController,
-            children: [
-              // FirestoreDataWidget(outerTab: widget.outerTab),
-              Card(
-                margin: const EdgeInsets.all(16.0),
-                child: Center(child: Text('${widget.outerTab}: Overview tab')),
-              ),
-              Card(
-                margin: const EdgeInsets.all(16.0),
-                child: Center(
-                    child: Text('${widget.outerTab}: Specifications tab')),
-              ),
+            children: const [
+              PointScreen(),
+              LeaderboardScreen(),
             ],
           ),
         ),
