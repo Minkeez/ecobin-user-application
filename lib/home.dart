@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
+import 'profile_screen.dart';
 
 class Home extends StatelessWidget {
   const Home({super.key});
@@ -38,9 +39,10 @@ class Home extends StatelessWidget {
               child: Text('QR Code Scanner Placeholder'),
             ),
             HomeScreen('Home'),
-            Center(
-              child: Text('Profile View Placeholder'),
-            ),
+            ProfileScreen(),
+            // Center(
+            //   child: Text('Profile View Placeholder'),
+            // ),
           ],
         ),
       ),
