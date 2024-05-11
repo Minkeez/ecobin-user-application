@@ -47,49 +47,79 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(height: 20),
           // Image display and picker button
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(width: 20),
-              Text("Test 1"),
-              SizedBox(width: 20),
-              Text("Test 2"),
+              const SizedBox(width: 20),
+              Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.bottomRight,
+                children: [
+                  _image != null
+                      ? Image.file(
+                          _image!,
+                          width: 150,
+                          height: 150,
+                        )
+                      : Container(
+                          width: 150,
+                          height: 150,
+                          color: const Color.fromARGB(255, 41, 55, 179),
+                          alignment: Alignment.center,
+                          child: const Text(
+                            'upload profile',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                  Positioned(
+                    right: 0,
+                    bottom: 0,
+                    child: IconButton(
+                      icon: const Icon(Icons.add_a_photo),
+                      color: Colors.white,
+                      onPressed: _pickImage,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 20),
+              // Phone number input field
+              Expanded(
+                child: TextFormField(
+                  controller: _phoneController,
+                  decoration: const InputDecoration(
+                    labelText: 'Phone number',
+                    border: OutlineInputBorder(),
+                  ),
+                  keyboardType: TextInputType.phone,
+                ),
+              ),
+              const SizedBox(width: 20),
             ],
           ),
-          _image != null
-              ? Image.file(_image!, width: 150, height: 150)
-              : Container(
-                  width: 150,
-                  height: 150,
-                  color: const Color.fromARGB(255, 41, 55, 179),
-                  alignment: Alignment.center,
-                  child: const Text(
-                    'upload profile',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(color: Colors.white),
-                  ),
-                ),
-          const SizedBox(height: 10),
-          ElevatedButton(
-            onPressed: _pickImage,
-            child: const Text('Choose Image'),
-          ),
           const SizedBox(height: 20),
-          // Phone number input field
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: TextFormField(
-              controller: _phoneController,
-              decoration: const InputDecoration(
-                labelText: 'Phone number',
-                border: OutlineInputBorder(),
-              ),
-              keyboardType: TextInputType.phone,
-            ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(horizontal: 20),
+          //   child: TextFormField(
+          //     controller: _phoneController,
+          //     decoration: const InputDecoration(
+          //       labelText: 'Phone number',
+          //       border: OutlineInputBorder(),
+          //     ),
+          //     keyboardType: TextInputType.phone,
+          //   ),
+          // ),
+          const SizedBox(height: 20),
+          const Text(
+            "Point",
+            style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          SizedBox(height: 20),
-          Text("Point", style: TextStyle(fontWeight: FontWeight.bold),),
-          PointScreen(),
-          Text("Leaderboard", style: TextStyle(fontWeight: FontWeight.bold),),
-          LeaderboardScreen(),
+          const PointScreen(),
+          const Text(
+            "Leaderboard",
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          const LeaderboardScreen(),
         ],
       ),
     );
