@@ -63,13 +63,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       : Container(
                           width: 150,
                           height: 150,
-                          color: const Color.fromARGB(255, 41, 55, 179),
                           alignment: Alignment.center,
-                          child: const Text(
-                            'upload profile',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: const Color.fromARGB(255, 41, 55, 179),
                           ),
+                          child: const Icon(
+                            Icons.account_circle,
+                            color: Colors.white,
+                            size: 104.0,
+                          ),
+                          //   child: const Text(
+                          //     'upload profile',
+                          //     textAlign: TextAlign.center,
+                          //     style: TextStyle(color: Colors.white),
+                          //   ),
                         ),
                   Positioned(
                     right: 0,
