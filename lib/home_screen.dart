@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_application/leaderboard_screen.dart';
-import 'package:user_application/point_screen.dart';
+import 'package:user_application/news_screen.dart';
 // import 'package:user_application/firestore_data.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -34,15 +34,15 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         TabBar.secondary(
           controller: _tabController,
           tabs: const [
-            Tab(text: 'point'),
-            Tab(text: 'leaderboard'),
+            Tab(text: 'News'),
+            Tab(text: 'Reward'),
           ],
         ),
         Expanded(
           child: TabBarView(
             controller: _tabController,
             children: const [
-              PointScreen(),
+              NewsScreen(),
               LeaderboardScreen(),
             ],
           ),
