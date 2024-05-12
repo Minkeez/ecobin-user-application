@@ -6,14 +6,13 @@ class LeaderboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
           Row(
             children: [
               SizedBox(
-                height: 40,
+                height: 50,
                 child: Image.asset('assets/yogurt.png'),
               ),
               const SizedBox(
@@ -24,12 +23,15 @@ class LeaderboardScreen extends StatelessWidget {
                 children: [
                   Text(
                     'YOGURT CUP',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 5,
                   ),
-                  Text('30 %'),
+                  Text(
+                    '30 %',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
             ],
@@ -40,7 +42,7 @@ class LeaderboardScreen extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                height: 40,
+                height: 50,
                 child: Image.asset('assets/bottle.png'),
               ),
               const SizedBox(
@@ -51,12 +53,15 @@ class LeaderboardScreen extends StatelessWidget {
                 children: [
                   Text(
                     'BOTTLE',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 5,
                   ),
-                  Text('50 %'),
+                  Text(
+                    '50 %',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
             ],
@@ -67,7 +72,7 @@ class LeaderboardScreen extends StatelessWidget {
           Row(
             children: [
               SizedBox(
-                height: 40,
+                height: 50,
                 child: Image.asset('assets/can.png'),
               ),
               const SizedBox(
@@ -78,12 +83,15 @@ class LeaderboardScreen extends StatelessWidget {
                 children: [
                   Text(
                     'CAN',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 5,
                   ),
-                  Text('10 %'),
+                  Text(
+                    '10 %',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
             ],

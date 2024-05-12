@@ -6,14 +6,13 @@ class PointScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(20),
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
           Row(
             children: [
               SizedBox(
-                height: 40,
+                height: 50,
                 child: Image.asset('assets/point.png'),
               ),
               // Icon(Icons.control_point),
@@ -24,13 +23,16 @@ class PointScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Total Point',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    'Point',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
                     height: 5,
                   ),
-                  Text('100/500'),
+                  Text(
+                    '100/500',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ],
               ),
             ],

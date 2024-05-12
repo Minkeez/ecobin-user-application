@@ -106,28 +106,41 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ],
           ),
           const SizedBox(height: 20),
-          // Padding(
-          //   padding: const EdgeInsets.symmetric(horizontal: 20),
-          //   child: TextFormField(
-          //     controller: _phoneController,
-          //     decoration: const InputDecoration(
-          //       labelText: 'Phone number',
-          //       border: OutlineInputBorder(),
-          //     ),
-          //     keyboardType: TextInputType.phone,
-          //   ),
-          // ),
-          const SizedBox(height: 20),
-          const Text(
-            "Point",
-            style: TextStyle(fontWeight: FontWeight.bold),
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(left: 30),
+            child: const Text(
+              "Total Point",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
           ),
-          const PointScreen(),
-          const Text(
-            "Leaderboard",
-            style: TextStyle(fontWeight: FontWeight.bold),
+          Container(
+              width: double.infinity,
+              margin: const EdgeInsets.only(
+                  top: 5, bottom: 20, left: 20, right: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: const Color.fromARGB(20, 41, 55, 179),
+              ),
+              child: const PointScreen()),
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.only(left: 30),
+            child: const Text(
+              "Leaderboard",
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
           ),
-          const LeaderboardScreen(),
+          Container(
+            width: double.infinity,
+            margin:
+                const EdgeInsets.only(top: 5, bottom: 20, left: 20, right: 20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: const Color.fromARGB(20, 41, 55, 179),
+            ),
+            child: const LeaderboardScreen(),
+          ),
         ],
       ),
     );
