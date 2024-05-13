@@ -2,8 +2,31 @@ import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
   const Home({super.key});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  late TextEditingController _nameController;
+  late TextEditingController _phoneController;
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController = TextEditingController();
+    _phoneController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _phoneController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,16 +56,16 @@ class Home extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
-            Center(
+            const Center(
               child: Text('QR Code Scanner Placeholder'),
             ),
-            HomeScreen('Home'),
-            ProfileScreen(),
-            // Center(
-            //   child: Text('Profile View Placeholder'),
-            // ),
+            const HomeScreen('Home'),
+            ProfileScreen(
+              nameController: _nameController,
+              phoneController: _phoneController,
+            ),
           ],
         ),
       ),

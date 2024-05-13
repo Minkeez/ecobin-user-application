@@ -6,7 +6,11 @@ import 'package:user_application/leaderboard_screen.dart';
 import 'point_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen(
+      {super.key, required this.nameController, required this.phoneController});
+
+  final TextEditingController nameController;
+  final TextEditingController phoneController;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -15,8 +19,9 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   File? _image;
-  final TextEditingController _phoneController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
+  bool _isEditingName = false;
+  bool _isEditingPhone = false;
 
   Future<void> _pickImage() async {
     try {
@@ -30,12 +35,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       // Handle errors or user cancellation here
       print('Image picker error: $e');
     }
-  }
-
-  @override
-  void dispose() {
-    _phoneController.dispose();
-    super.dispose();
   }
 
   @override
@@ -73,11 +72,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: Colors.white,
                             size: 104.0,
                           ),
-                          //   child: const Text(
-                          //     'upload profile',
-                          //     textAlign: TextAlign.center,
-                          //     style: TextStyle(color: Colors.white),
-                          //   ),
                         ),
                   Positioned(
                     right: 0,
@@ -93,13 +87,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
               const SizedBox(width: 20),
               // Phone number input field
               Expanded(
-                child: TextFormField(
-                  controller: _phoneController,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone number',
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.phone,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const SizedBox(height: 10),
+                    _buildProfileInfo(
+                        "Name", widget.nameController, _isEditingName, () {
+                      setState(() {
+                        _isEditingName = !_isEditingName;
+                      });
+                    }),
+                    _buildProfileInfo(
+                        "Phone number", widget.phoneController, _isEditingPhone,
+                        () {
+                      setState(() {
+                        _isEditingPhone = !_isEditingPhone;
+                      });
+                    }),
+                    const SizedBox(height: 10),
+                  ],
                 ),
               ),
               const SizedBox(width: 20),
@@ -111,7 +117,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             margin: const EdgeInsets.only(left: 30),
             child: const Text(
               "Total Point",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Container(
@@ -128,7 +137,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             margin: const EdgeInsets.only(left: 30),
             child: const Text(
               "Leaderboard",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Container(
@@ -143,6 +155,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
+    );
+  }
+}
+
+Widget _buildProfileInfo(String label, TextEditingController controller,
+    bool isEditing, VoidCallback toggleEdit) {
+  if (isEditing) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          labelText: label,
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.check),
+            onPressed: toggleEdit,
+          ),
+        ),
+        onSubmitted: (value) => toggleEdit(),
+      ),
+    );
+  } else {
+    return ListTile(
+      title: Text(
+        controller.text.isEmpty ? 'Enter $label' : controller.text,
+        style: const TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Text(
+        label,
+        style: const TextStyle(
+          fontSize: 12,
+          color: Color.fromARGB(150, 41, 55, 179),
+        ),
+      ),
+      trailing: IconButton(
+        icon: const Icon(Icons.edit),
+        onPressed: toggleEdit,
+      ),
+      onTap: toggleEdit,
     );
   }
 }
