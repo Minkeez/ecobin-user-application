@@ -1,9 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:user_application/leaderboard_screen.dart';
+import 'package:user_application/leaderboard_section.dart';
 
-import 'point_screen.dart';
+import 'point_section.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen(
@@ -131,7 +131,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 borderRadius: BorderRadius.circular(10),
                 color: const Color.fromARGB(20, 41, 55, 179),
               ),
-              child: const PointScreen()),
+              child: const PointSection()),
           Container(
             width: double.infinity,
             margin: const EdgeInsets.only(left: 30),
@@ -151,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               borderRadius: BorderRadius.circular(10),
               color: const Color.fromARGB(20, 41, 55, 179),
             ),
-            child: const LeaderboardScreen(),
+            child: const LeaderboardSection(),
           ),
         ],
       ),

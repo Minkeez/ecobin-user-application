@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class LeaderboardScreen extends StatelessWidget {
-  const LeaderboardScreen({super.key});
+class LeaderboardSection extends StatelessWidget {
+  const LeaderboardSection({super.key});
 
   @override
   Widget build(BuildContext context) {
