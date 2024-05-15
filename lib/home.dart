@@ -21,7 +21,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     super.initState();
     _nameController = TextEditingController();
     _phoneController = TextEditingController();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(initialIndex: 1, length: 3, vsync: this);
     _tabController.addListener(_handleTabSelection);
   }
 

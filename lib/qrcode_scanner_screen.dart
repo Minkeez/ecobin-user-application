@@ -7,13 +7,13 @@ class QRCodeScannerScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Scan QR Code"),
+        title: const Text("Scan QR Code"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      body: Center(
+      body: const Center(
         child: Text("QR code scanner goes here."),
       ),
     );
