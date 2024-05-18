@@ -2,9 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'thank_you_screen.dart';
 
 class QRCodeScannerScreen extends StatefulWidget {
-  const QRCodeScannerScreen({super.key});
+  const QRCodeScannerScreen({super.key, required this.phoneNumber});
+
+  final String phoneNumber;
 
   @override
   // ignore: library_private_types_in_public_api
@@ -13,8 +17,9 @@ class QRCodeScannerScreen extends StatefulWidget {
 
 class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  Barcode? result;
+  // Barcode? result;
   QRViewController? controller;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
   void reassemble() {
@@ -34,10 +39,23 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
 
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+    controller.scannedDataStream.listen((scanData) async {
+      controller.pauseCamera();
+
+      if (scanData.code == "https://yourapp.page.link/waiting") {
+        // Update Firestore with the phone number
+        await _firestore.collection("scans").doc("waiting").update({
+          "status": "scanned",
+          "phoneNumber": widget.phoneNumber,
+          "timestamp": FieldValue.serverTimestamp(),
+        });
+
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => ThankYouScreen(),
+        ));
+      } else {
+        controller.resumeCamera();
+      }
     });
   }
 
@@ -52,7 +70,7 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
         ),
       ),
       body: Column(
-        children: <Widget>[
+        children: [
           Expanded(
             flex: 5,
             child: QRView(
@@ -67,13 +85,10 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
               ),
             ),
           ),
-          Expanded(
+          const Expanded(
             flex: 1,
             child: Center(
-              child: (result != null)
-                  ? Text(
-                      'Barcode Type: ${result!.format}   Data: ${result!.code}')
-                  : const Text('Scan a code'),
+              child: Text('Scan a code'),
             ),
           ),
         ],
@@ -81,3 +96,56 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
     );
   }
 }
+
+
+// import 'dart:io';
+
+// import 'package:flutter/material.dart';
+// import 'package:qr_code_scanner/qr_code_scanner.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+// class QRCodeScannerScreen extends StatefulWidget {
+//   const QRCodeScannerScreen({super.key});
+
+//   @override
+//   // ignore: library_private_types_in_public_api
+//   _QRCodeScannerScreenState createState() => _QRCodeScannerScreenState();
+// }
+
+// class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
+//   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+//   QRViewController? controller;
+//   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+//   void _onQRViewCreated(QRViewController controller) {
+//     this.controller = controller;
+//     controller.scannedDataStream.listen((scanData) async {
+//       if (scanData.code == "https://yourapp.page.link/waiting") {
+//         Navigator.of(context).push(MaterialPageRoute(
+//           builder: (context) => PhoneNumberScreen(),
+//         ));
+//       } else {
+//         controller.resumeCamera();
+//       }
+//     });
+//   }
+
+//   @override
+//   void dispose() {
+//     controller?.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text("Scan QR Code"),
+//       ),
+//       body: QRView(
+//         key: qrKey,
+//         onQRViewCreated: _onQRViewCreated,
+//       ),
+//     );
+//   }
+// }

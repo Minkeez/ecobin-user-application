@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:user_application/qrcode_scanner_screen.dart';
 
 class QRCodeScreen extends StatelessWidget {
-  const QRCodeScreen({super.key});
+  const QRCodeScreen({super.key, required this.phoneNumber});
+
+  final String phoneNumber;
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +75,9 @@ class QRCodeScreen extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const QRCodeScannerScreen(),
+                    builder: (context) => QRCodeScannerScreen(
+                      phoneNumber: phoneNumber,
+                    ),
                   ));
                 },
                 style: ElevatedButton.styleFrom(

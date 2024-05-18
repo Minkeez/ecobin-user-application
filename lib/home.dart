@@ -31,7 +31,11 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         Future.delayed(Duration.zero, () {
           if (mounted) {
             Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const QRCodeScreen()),
+              MaterialPageRoute(
+                builder: (context) => QRCodeScreen(
+                  phoneNumber: _phoneController.text,
+                ),
+              ),
             );
             _tabController.animateTo(1,
                 duration: const Duration(milliseconds: 300));
@@ -80,9 +84,6 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
         controller: _tabController,
         children: [
           Container(),
-          // const Center(
-          //   child: Text('QR Code Scanner Placeholder'),
-          // ),
           const HomeScreen('Home'),
           ProfileScreen(
             nameController: _nameController,
