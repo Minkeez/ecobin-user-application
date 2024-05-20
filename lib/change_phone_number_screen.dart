@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'otp_verification_screen.dart';
 
 class ChangePhoneNumberScreen extends StatefulWidget {
   const ChangePhoneNumberScreen({super.key, required this.phoneController});
@@ -6,19 +8,53 @@ class ChangePhoneNumberScreen extends StatefulWidget {
   final TextEditingController phoneController;
 
   @override
-  // ignore: library_private_types_in_public_api
-  _ChangePhoneNumberScreenState createState() =>
+  State<ChangePhoneNumberScreen> createState() =>
       _ChangePhoneNumberScreenState();
 }
 
 class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
   final TextEditingController _newPhoneController = TextEditingController();
+  String? _errorText;
+
+  @override
+  void initState() {
+    super.initState();
+    // Prepopulate the phone number in the desired format
+    final currentPhone = widget.phoneController.text;
+    if (currentPhone.startsWith("0")) {
+      _newPhoneController.text = currentPhone;
+    }
+  }
 
   void _submitNewPhoneNumber() {
-    setState(() {
-      widget.phoneController.text = _newPhoneController.text;
-    });
-    Navigator.of(context).pop();
+    final phoneNumber = _newPhoneController.text;
+    final regex = RegExp(r'^0\d{9}$');
+
+    if (!regex.hasMatch(phoneNumber)) {
+      setState(() {
+        _errorText =
+            'Please enter a valid phone number in the format 0XXXXXXXXX';
+      });
+    } else {
+      setState(() {
+        widget.phoneController.text = phoneNumber;
+        _errorText = null;
+      });
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => OTPVerificationScreen(
+            phoneNumber: phoneNumber,
+            phoneController: widget.phoneController,
+          ),
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _newPhoneController.dispose();
+    super.dispose();
   }
 
   @override
@@ -31,13 +67,20 @@ class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
           children: [
             TextField(
               controller: _newPhoneController,
-              decoration: const InputDecoration(labelText: "New Phone Number"),
+              decoration: InputDecoration(
+                labelText: "New Phone Number",
+                errorText: _errorText,
+              ),
               keyboardType: TextInputType.phone,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                LengthLimitingTextInputFormatter(10),
+              ],
             ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _submitNewPhoneNumber,
-              child: const Text("Submit"),
+              child: const Text("Send OTP"),
             ),
           ],
         ),

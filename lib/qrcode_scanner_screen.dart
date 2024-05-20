@@ -50,8 +50,9 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
           "timestamp": FieldValue.serverTimestamp(),
         });
 
+        // ignore: use_build_context_synchronously
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => ThankYouScreen(),
+          builder: (context) => const ThankYouScreen(),
         ));
       } else {
         controller.resumeCamera();

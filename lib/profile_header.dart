@@ -6,6 +6,7 @@ class ProfileHeader extends StatefulWidget {
   const ProfileHeader({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ProfileHeaderState createState() => _ProfileHeaderState();
 }
 

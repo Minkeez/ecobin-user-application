@@ -75,7 +75,7 @@ class _ProfileInfoState extends State<ProfileInfo> {
       ),
       trailing: isEditable
           ? IconButton(
-              icon: Icon(isEditable ? Icons.check : Icons.edit),
+              icon: Icon(isEditing ? Icons.check : Icons.edit),
               onPressed: onEdit,
             )
           : IconButton(
