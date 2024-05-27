@@ -24,6 +24,7 @@ class _ProfileHeaderState extends State<ProfileHeader> {
       }
     } catch (e) {
       // Handle errors or user cancellation here
+      // ignore: avoid_print
       print('Image picker error: $e');
     }
   }

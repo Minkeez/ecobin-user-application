@@ -66,7 +66,7 @@ class QRCodeScreen extends StatelessWidget {
               ),
               child: Icon(
                 Icons.qr_code_scanner,
-                size: 400,
+                size: 300,
                 color: Colors.grey[300],
               ),
             ),

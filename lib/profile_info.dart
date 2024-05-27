@@ -19,6 +19,24 @@ class ProfileInfo extends StatefulWidget {
 class _ProfileInfoState extends State<ProfileInfo> {
   bool _isEditingName = false;
 
+  @override
+  void initState() {
+    super.initState();
+
+    // Add listener to phoneController to rebuild widget when phone number changes
+    widget.phoneController.addListener(_updatePhoneNumber);
+  }
+
+  @override
+  void dispose() {
+    widget.phoneController.removeListener(_updatePhoneNumber);
+    super.dispose();
+  }
+
+  void _updatePhoneNumber() {
+    setState(() {}); // Trigger a rebuild when the phone number changes
+  }
+
   void _toggleEditingName() {
     setState(() {
       _isEditingName = !_isEditingName;
