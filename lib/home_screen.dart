@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:user_application/leaderboard_section.dart';
+// import 'package:user_application/leaderboard_section.dart';
 import 'package:user_application/news_screen.dart';
 // import 'package:user_application/firestore_data.dart';
 
@@ -43,7 +43,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             controller: _tabController,
             children: const [
               NewsScreen(),
-              LeaderboardSection(),
+              Center(
+                child: Text("Placeholder"),
+              ),
+              // LeaderboardSection(),
             ],
           ),
         ),

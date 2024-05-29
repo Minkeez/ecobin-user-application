@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:user_application/leaderboard_section.dart';
 import 'package:user_application/point_section.dart';
 import 'profile_header.dart';
@@ -20,6 +21,29 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  Map<String, dynamic>? userData;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    if (widget.phoneController.text.isNotEmpty) {
+      final userDoc = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(widget.phoneController.text)
+          .get();
+
+      if (userDoc.exists) {
+        setState(() {
+          userData = userDoc.data();
+        });
+      }
+    }
+  }
+
   void _editPhoneNumber() {
     Navigator.of(context)
         .push(
@@ -30,7 +54,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     )
         .then((_) {
-      setState(() {});
+      setState(() {
+        _fetchUserData();
+      });
     });
   }
 
@@ -64,9 +90,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           const SizedBox(height: 20),
           _buildSectionTitle("Total Point"),
-          _buildSectionContent(const PointSection()),
+          _buildSectionContent(
+            userData != null
+                ? PointSection(points: userData!['totalPoints'] ?? 0)
+                : const CircularProgressIndicator(),
+          ),
           _buildSectionTitle("Leaderboard"),
-          _buildSectionContent(const LeaderboardSection()),
+          _buildSectionContent(
+            userData != null
+                ? LeaderboardSection(
+                    bottles: userData!['bottles'] ?? 0,
+                    cans: userData!['cans'] ?? 0,
+                    yogurtCups: userData!['yogurtCups'] ?? 0,
+                  )
+                : const CircularProgressIndicator(),
+          ),
         ],
       ),
     );
