@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             children: const [
               NewsScreen(),
               Center(
-                child: Text("Placeholder"),
+                child: Text("Placeholder for reward screen later"),
               ),
               // LeaderboardSection(),
             ],

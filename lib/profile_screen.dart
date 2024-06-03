@@ -93,7 +93,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _buildSectionContent(
             userData != null
                 ? PointSection(points: userData!['totalPoints'] ?? 0)
-                : const CircularProgressIndicator(),
+                : _buildPlaceholderContent(),
           ),
           _buildSectionTitle("Leaderboard"),
           _buildSectionContent(
@@ -103,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     cans: userData!['cans'] ?? 0,
                     yogurtCups: userData!['yogurtCups'] ?? 0,
                   )
-                : const CircularProgressIndicator(),
+                : _buildPlaceholderContent(),
           ),
         ],
       ),
@@ -133,6 +133,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
         color: const Color.fromARGB(20, 41, 55, 179),
       ),
       child: child,
+    );
+  }
+
+  Widget _buildPlaceholderContent() {
+    return const Padding(
+      padding: EdgeInsets.all(20),
+      child: Text(
+        'Please enter phone number to view data...',
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.grey,
+        ),
+      ),
     );
   }
 }
