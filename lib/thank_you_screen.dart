@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'home_screen.dart';
+import 'home.dart';
 
 class ThankYouScreen extends StatelessWidget {
   const ThankYouScreen({super.key});
@@ -19,7 +19,7 @@ class ThankYouScreen extends StatelessWidget {
           onTap: () {
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const HomeScreen('Home')),
+              MaterialPageRoute(builder: (context) => const Home()),
               (route) => false,
             );
           },
@@ -79,7 +79,7 @@ class ThankYouScreen extends StatelessWidget {
                 Navigator.pushAndRemoveUntil(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const HomeScreen('Home')),
+                      builder: (context) => const Home()),
                   (route) => false,
                 );
               },
