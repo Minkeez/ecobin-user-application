@@ -194,23 +194,6 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                 ),
               ],
             ),
-            // TextField(
-            //   controller: _otpController,
-            //   decoration: InputDecoration(
-            //     labelText: "Enter OTP",
-            //     errorText: _errorText,
-            //   ),
-            //   keyboardType: TextInputType.number,
-            //   inputFormatters: [
-            //     FilteringTextInputFormatter.digitsOnly,
-            //     LengthLimitingTextInputFormatter(6),
-            //   ],
-            // ),
-            // const SizedBox(height: 20),
-            // ElevatedButton(
-            //   onPressed: _verifyOTP,
-            //   child: const Text("Verify"),
-            // ),
           ],
         ),
       ),

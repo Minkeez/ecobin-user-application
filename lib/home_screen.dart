@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// import 'package:user_application/leaderboard_section.dart';
+import 'package:user_application/redeem_screen.dart';
 import 'package:user_application/news_screen.dart';
 // import 'package:user_application/firestore_data.dart';
 
@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           controller: _tabController,
           tabs: const [
             Tab(text: 'News'),
-            Tab(text: 'Reward'),
+            Tab(text: 'Redeem'),
           ],
         ),
         Expanded(
@@ -43,10 +43,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             controller: _tabController,
             children: const [
               NewsScreen(),
-              Center(
-                child: Text("Placeholder for reward screen later"),
-              ),
-              // LeaderboardSection(),
+              // Center(
+              //   child: Text("Placeholder for reward screen later"),
+              // ),
+              RedeemScreen(),
             ],
           ),
         ),
