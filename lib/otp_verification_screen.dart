@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+// import 'package:flutter/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPVerificationScreen extends StatefulWidget {
@@ -57,6 +58,11 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
       });
 
       widget.phoneController.text = widget.phoneNumber;
+
+      // Set phone number entered flag
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('phone_number_entered', true);
+
       // ignore: use_build_context_synchronously
       Navigator.of(context).popUntil((route) => route.isFirst);
       // ignore: use_build_context_synchronously

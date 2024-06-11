@@ -7,10 +7,10 @@ class UserPreferences {
     _preferences = await SharedPreferences.getInstance();
   }
 
-  static Future<bool> isFirstTimeQRCode() async {
-    bool firstTime = _preferences.getBool('first_time_qrcode') ?? true;
+  static Future<bool> isFirstTimeUser() async {
+    bool firstTime = _preferences.getBool('first_time_user') ?? true;
     if (firstTime) {
-      await _preferences.setBool('first_time_qrcode', false);
+      await _preferences.setBool('first_time_user', false);
     }
     return firstTime;
   }

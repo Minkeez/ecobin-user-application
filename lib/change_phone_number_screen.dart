@@ -79,7 +79,7 @@ class _ChangePhoneNumberScreenState extends State<ChangePhoneNumberScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Change Phone Number"),
+        title: const Text("Edit Phone Number"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

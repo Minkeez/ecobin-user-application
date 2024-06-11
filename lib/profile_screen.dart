@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:user_application/home.dart';
 import 'package:user_application/leaderboard_section.dart';
 import 'package:user_application/point_section.dart';
 import 'profile_header.dart';
@@ -58,6 +59,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
         _fetchUserData();
       });
     });
+  }
+
+  void _saveUserInfo() async {
+    if (widget.nameController.text.isNotEmpty &&
+        widget.phoneController.text.isNotEmpty) {
+      final userDoc = FirebaseFirestore.instance
+          .collection('Users')
+          .doc(widget.phoneController.text);
+      await userDoc.set({
+        'userName': widget.nameController.text,
+        'phoneNumber': widget.phoneController.text,
+      }, SetOptions(merge: true));
+
+      // Navigate to Home screen after saving the user info
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => const Home()),
+      );
+    }
   }
 
   @override

@@ -38,13 +38,15 @@ class ThankYouScreen extends StatelessWidget {
               child: CircularPercentIndicator(
                 radius: 100,
                 percent: 0.8,
-                progressColor: Colors.indigo,
+                progressColor: const Color.fromARGB(255, 41, 55, 179),
                 center: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
                       "Point",
-                      style: TextStyle(color: Colors.indigo, fontSize: 24),
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 41, 55, 179),
+                          fontSize: 24),
                     ),
                     SizedBox(height: 10),
                     Text("400/500"),
@@ -54,7 +56,10 @@ class ThankYouScreen extends StatelessWidget {
             ),
             const Text(
               "Thank you for recycling",
-              style: TextStyle(fontSize: 20, color: Colors.indigo),
+              style: TextStyle(
+                fontSize: 20,
+                color: Color.fromARGB(255, 41, 55, 179),
+              ),
             ),
             const SizedBox(height: 20),
             Row(
@@ -78,13 +83,12 @@ class ThankYouScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const Home()),
+                  MaterialPageRoute(builder: (context) => const Home()),
                   (route) => false,
                 );
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.indigo,
+                backgroundColor: const Color.fromARGB(255, 41, 55, 179),
                 padding:
                     const EdgeInsets.symmetric(horizontal: 100, vertical: 15),
               ),
