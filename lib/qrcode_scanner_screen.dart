@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:user_application/user_preferences.dart';
 import 'thank_you_screen.dart';
 
 class QRCodeScannerScreen extends StatefulWidget {
@@ -50,9 +51,14 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
           "timestamp": FieldValue.serverTimestamp(),
         });
 
+        // Increment the user's total points
+        int currentPoints = UserPreferences.getTotalPoints();
+        currentPoints += 5;
+        await UserPreferences.saveTotalPoints(currentPoints);
+
         // ignore: use_build_context_synchronously
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => const ThankYouScreen(),
+          builder: (context) => ThankYouScreen(points: currentPoints),
         ));
       } else {
         controller.resumeCamera();
@@ -78,7 +84,7 @@ class _QRCodeScannerScreenState extends State<QRCodeScannerScreen> {
               key: qrKey,
               onQRViewCreated: _onQRViewCreated,
               overlay: QrScannerOverlayShape(
-                borderColor: Colors.blue,
+                borderColor: const Color.fromARGB(255, 41, 55, 179),
                 borderRadius: 10,
                 borderLength: 30,
                 borderWidth: 10,

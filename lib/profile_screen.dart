@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:user_application/home.dart';
+// import 'package:user_application/home.dart';
 import 'package:user_application/leaderboard_section.dart';
 import 'package:user_application/point_section.dart';
+// import 'user_preferences.dart';
 import 'profile_header.dart';
 import 'profile_info.dart';
 import 'change_phone_number_screen.dart';
@@ -27,8 +28,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   void initState() {
     super.initState();
+    // _loadUserData();
     _fetchUserData();
   }
+
+  // Future<void> _loadUserData() async {
+  //   widget.nameController.text = UserPreferences.getUserName() ?? '';
+  //   widget.phoneController.text = UserPreferences.getPhoneNumber() ?? '';
+  // }
 
   Future<void> _fetchUserData() async {
     if (widget.phoneController.text.isNotEmpty) {
@@ -61,24 +68,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void _saveUserInfo() async {
-    if (widget.nameController.text.isNotEmpty &&
-        widget.phoneController.text.isNotEmpty) {
-      final userDoc = FirebaseFirestore.instance
-          .collection('Users')
-          .doc(widget.phoneController.text);
-      await userDoc.set({
-        'userName': widget.nameController.text,
-        'phoneNumber': widget.phoneController.text,
-      }, SetOptions(merge: true));
+  // void _saveUserInfo() async {
+  //   if (widget.nameController.text.isNotEmpty &&
+  //       widget.phoneController.text.isNotEmpty) {
+  //     final userDoc = FirebaseFirestore.instance
+  //         .collection('Users')
+  //         .doc(widget.phoneController.text);
+  //     await userDoc.set({
+  //       'userName': widget.nameController.text,
+  //       'phoneNumber': widget.phoneController.text,
+  //     }, SetOptions(merge: true));
 
-      // Navigate to Home screen after saving the user info
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const Home()),
-      );
-    }
-  }
+  //     await UserPreferences.saveUserName(widget.nameController.text);
+  //     await UserPreferences.savePhoneNumber(widget.phoneController.text);
+
+  //     // Navigate to Home screen after saving the user info
+  //     // ignore: use_build_context_synchronously
+  //     Navigator.of(context).pushReplacement(
+  //       MaterialPageRoute(builder: (context) => const Home()),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

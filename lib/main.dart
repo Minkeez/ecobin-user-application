@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'home.dart';
 import 'profile_screen.dart';
@@ -29,6 +28,7 @@ class EcoBin extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MaterialApp(
+            debugShowCheckedModeBanner: false,
             home: Scaffold(
               body: Center(child: CircularProgressIndicator()),
             ),
