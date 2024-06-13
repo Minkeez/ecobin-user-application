@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'home.dart';
 import 'profile_screen.dart';
 import 'user_preferences.dart';
+import 'user_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,10 +39,16 @@ class EcoBin extends StatelessWidget {
 
         final isFirstTimeUser = snapshot.data ?? true;
 
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(useMaterial3: true),
-          home: isFirstTimeUser ? const FirstTimeProfileScreen() : const Home(),
+        return MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => UserProvider()),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(useMaterial3: true),
+            home:
+                isFirstTimeUser ? const FirstTimeProfileScreen() : const Home(),
+          ),
         );
       },
     );

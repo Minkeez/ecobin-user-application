@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:user_application/home.dart';
+import 'package:provider/provider.dart';
 import 'package:user_application/leaderboard_section.dart';
 import 'package:user_application/point_section.dart';
-// import 'user_preferences.dart';
 import 'profile_header.dart';
 import 'profile_info.dart';
 import 'change_phone_number_screen.dart';
+import 'user_provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -122,7 +122,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _buildSectionTitle("Total Point"),
           _buildSectionContent(
             userData != null
-                ? PointSection(points: userData!['totalPoints'] ?? 0)
+                ? Consumer<UserProvider>(
+                    builder: (context, userProvider, child) {
+                      return PointSection(points: userProvider.totalPoints);
+                    },
+                  )
                 : _buildPlaceholderContent(),
           ),
           _buildSectionTitle("Leaderboard"),
