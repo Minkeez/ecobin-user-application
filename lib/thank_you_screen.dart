@@ -3,9 +3,7 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'home.dart';
 
 class ThankYouScreen extends StatelessWidget {
-  const ThankYouScreen({super.key, required this.points});
-
-  final int points;
+  const ThankYouScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,19 +37,19 @@ class ThankYouScreen extends StatelessWidget {
               margin: const EdgeInsets.only(bottom: 50),
               child: CircularPercentIndicator(
                 radius: 100,
-                percent: points / 500,
+                percent: 0.8,
                 progressColor: const Color.fromARGB(255, 41, 55, 179),
-                center: Column(
+                center: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       "Point",
                       style: TextStyle(
                           color: Color.fromARGB(255, 41, 55, 179),
                           fontSize: 24),
                     ),
-                    const SizedBox(height: 10),
-                    Text("$points/500"),
+                    SizedBox(height: 10),
+                    Text("400/500"),
                   ],
                 ),
               ),

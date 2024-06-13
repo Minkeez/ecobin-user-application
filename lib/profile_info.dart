@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
-import 'package:user_application/user_provider.dart';
 
 class ProfileInfo extends StatefulWidget {
   const ProfileInfo({
@@ -25,54 +22,25 @@ class _ProfileInfoState extends State<ProfileInfo> {
   @override
   void initState() {
     super.initState();
-    _loadProfileInfo();
-    // widget.nameController.addListener(_saveName);
-    // widget.phoneController.addListener(_savePhoneNumber);
 
     // Add listener to phoneController to rebuild widget when phone number changes
-    // widget.phoneController.addListener(_updatePhoneNumber);
+    widget.phoneController.addListener(_updatePhoneNumber);
   }
 
-  // @override
-  // void dispose() {
-  //   // widget.phoneController.removeListener(_updatePhoneNumber);
-  //   widget.nameController.removeListener(_saveName);
-  //   widget.phoneController.removeListener(_savePhoneNumber);
-  //   super.dispose();
-  // }
-
-  Future<void> _loadProfileInfo() async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    widget.nameController.text = userProvider.name;
-    widget.phoneController.text = userProvider.phoneNumber;
-    // final prefs = await SharedPreferences.getInstance();
-    // widget.nameController.text = prefs.getString('user_name') ?? '';
-    // widget.phoneController.text = prefs.getString('phone_number') ?? '';
+  @override
+  void dispose() {
+    widget.phoneController.removeListener(_updatePhoneNumber);
+    super.dispose();
   }
 
-  Future<void> _saveName() async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    userProvider.updateName(widget.nameController.text);
-    // final prefs = await SharedPreferences.getInstance();
-    // await prefs.setString('user_name', widget.nameController.text);
+  void _updatePhoneNumber() {
+    setState(() {}); // Trigger a rebuild when the phone number changes
   }
-
-  // Future<void> _savePhoneNumber() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   await prefs.setString('phone_number', widget.phoneController.text);
-  // }
-
-  // void _updatePhoneNumber() {
-  //   setState(() {}); // Trigger a rebuild when the phone number changes
-  // }
 
   void _toggleEditingName() {
     setState(() {
       _isEditingName = !_isEditingName;
     });
-    if (!_isEditingName) {
-      _saveName();
-    }
   }
 
   @override

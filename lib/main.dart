@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:provider/provider.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
 import 'firebase_options.dart';
 import 'home.dart';
 import 'profile_screen.dart';
@@ -30,7 +30,6 @@ class EcoBin extends StatelessWidget {
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const MaterialApp(
-            debugShowCheckedModeBanner: false,
             home: Scaffold(
               body: Center(child: CircularProgressIndicator()),
             ),
@@ -39,17 +38,23 @@ class EcoBin extends StatelessWidget {
 
         final isFirstTimeUser = snapshot.data ?? true;
 
-        return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => UserProvider()),
-          ],
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(useMaterial3: true),
-            home:
-                isFirstTimeUser ? const FirstTimeProfileScreen() : const Home(),
-          ),
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(useMaterial3: true),
+          home: isFirstTimeUser ? const FirstTimeProfileScreen() : const Home(),
         );
+
+        // return MultiProvider(
+        //   providers: [
+        //     ChangeNotifierProvider(create: (_) => UserProvider()),
+        //   ],
+        //   child: MaterialApp(
+        //     debugShowCheckedModeBanner: false,
+        //     theme: ThemeData(useMaterial3: true),
+        //     home:
+        //         isFirstTimeUser ? const FirstTimeProfileScreen() : const Home(),
+        //   ),
+        // );
       },
     );
   }
