@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:user_application/home.dart';
+// import 'package:user_application/home.dart';
 import 'package:user_application/leaderboard_section.dart';
 import 'package:user_application/point_section.dart';
+// import 'user_preferences.dart';
 import 'profile_header.dart';
 import 'profile_info.dart';
 import 'change_phone_number_screen.dart';
-import 'user_provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({
@@ -62,24 +62,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
   }
 
-  void _saveUserInfo() async {
-    if (widget.nameController.text.isNotEmpty &&
-        widget.phoneController.text.isNotEmpty) {
-      final userDoc = FirebaseFirestore.instance
-          .collection('Users')
-          .doc(widget.phoneController.text);
-      await userDoc.set({
-        'userName': widget.nameController.text,
-        'phoneNumber': widget.phoneController.text,
-      }, SetOptions(merge: true));
+  // void _saveUserInfo() async {
+  //   if (widget.nameController.text.isNotEmpty &&
+  //       widget.phoneController.text.isNotEmpty) {
+  //     final userDoc = FirebaseFirestore.instance
+  //         .collection('Users')
+  //         .doc(widget.phoneController.text);
+  //     await userDoc.set({
+  //       'userName': widget.nameController.text,
+  //       'phoneNumber': widget.phoneController.text,
+  //     }, SetOptions(merge: true));
 
-      // Navigate to Home screen after saving the user info
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const Home()),
-      );
-    }
-  }
+  //     // Navigate to Home screen after saving the user info
+  //     // ignore: use_build_context_synchronously
+  //     Navigator.of(context).pushReplacement(
+  //       MaterialPageRoute(builder: (context) => const Home()),
+  //     );
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -113,11 +113,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           _buildSectionTitle("Total Point"),
           _buildSectionContent(
             userData != null
-                ? Consumer<UserProvider>(
-                    builder: (context, userProvider, child) {
-                      return PointSection(points: userProvider.totalPoints);
-                    },
-                  )
+                ? PointSection(points: userData!['totalPoints'] ?? 0)
                 : _buildPlaceholderContent(),
           ),
           _buildSectionTitle("Leaderboard"),
